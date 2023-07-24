@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Welcome!</h1>
+
+    {% if 'username' not in session %}
+    <h3>Please Login/Register.</h3>
+
+    <a href="/login" class="btn btn-info">Login</a>
+    <a href="/register" class="btn btn-success">Register</a>
+    
+    {% else %}
+    <h3>You are currently logged in.</h3>
+
+    <a href="/logout" class="btn btn-danger">Logout</a>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

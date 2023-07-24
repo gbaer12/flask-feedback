@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Write Feedback{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<h1 class="display-1">Write Feedback</h1>
+
+<form method="POST" accept="/feedback/{{ feedback.id }}/update">
+
+    {{ form.hidden_tag() }}
+
+    {% for field in form if field.widget.input_type != 'hidden' %}
+
+    <p>
+        {{ field.label }}
+        {{ field (class_="form-control")}}
+
+        {% for error in field.errors %}
+        <span class="form-text text-danger">
+        {{ error }}
+        </span>
+        {% endfor %}
+    </p>
+
+    {% endfor %}
+
+    <button class="btn btn-success" type="submit">Submit</button>
+
+    <a href="/users/{{ feedback.username }}" class="btn btn-warning">Back</a>
+
+    <form action="">
+        <button formaction="/feedback/{{ feedback.id }}/delete" formmethod="POST" class="btn btn-danger" onclick="return confirm('Are you sure you want to DELETE this feedback?')">Delete</button>
+      </form>
+
+</form>
+</div>
+
+{% endblock %}

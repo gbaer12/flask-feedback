@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}User Info{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-primary"><b>{{user.username}}</b></h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Profile</h6>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Name:  {{user.first_name}} {{user.last_name}}</li>
+
+            <li class="list-group-item">Email: {{user.email}}</li>
+
+            <li class="list-group-item"><a href="/users/{{user.username}}/feedback/add" class="btn btn-info">Add Feedback</a></li>
+
+            <li class="list-group-item">
+              <h4>My Feedback</h4>
+              {% for feedback in user.feedback %}
+              <div class="mt-2">
+              <h6><b>{{ feedback.title }}</b></h6>
+                <div>
+                  Feedback: {{ feedback.content }}
+                </div>
+              </div> 
+              <a href="/feedback/{{ feedback.id }}/update" class="btn btn-sm btn-warning">Edit</a>
+              <form action="/feedback/{{ feedback.id }}/delete" method="POST" style="display:inline">
+                <button class="btn btn-lg" onclick="return confirm('Are you sure you want to DELETE this feedback?')"><i class="fa-solid fa-trash-can" style="color: #ff0000;"></i></button>
+              </form>
+
+              {% endfor %}
+            </li>
+
+            <li class="list-group-item"><a href="/logout" class="btn btn-warning">Logout</a></li>
+
+            <li class="list-group-item">
+              <form action="">
+                <button formaction="/users/{{user.username}}/delete" formmethod="POST" class="btn btn-danger" onclick="return confirm('Are you sure you want to DELETE this user?')">Delete User</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+</div>
+
+{% endblock %}
